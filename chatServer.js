@@ -178,20 +178,20 @@ function bot(data, socket, questionNum) {
 	PC_name = input;
     	respondWith = 'Hello, ' + PC_name; // output response
     	askQuestion = 'Have you ever played Dungeons and Dragons?'; // load next askQuestion
-    	waitTime = 1000;
+    	waitTime = 2000;
 	newQuestionNum = 1;
     	break;
     case 1 :
     	respondWith = 'I\'m not sure what \"' + input + '\" means, but cool'; // output response
     	askQuestion = 'What character or creature do you want to be?'; // load next askQuestion
-	waitTime = 1000;
+	waitTime = 2500;
 	newQuestionNum = 2;
     	break;
     case 2 :
 	PC_creature = input;
     	respondWith = 'Great, you be a ' + input + ' and I\'ll be a dragon!'; // output response
     	askQuestion = 'Do you want to play? yes or no'; // load next askQuestion
-	waitTime = 1500;
+	waitTime = 2500;
 	newQuestionNum = 3;
     	break;
     case 3 :
