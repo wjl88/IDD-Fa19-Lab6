@@ -11,8 +11,19 @@ var io = require('socket.io')(http); // connect websocket library to server
 var serverPort = 8000;
 
 var PC_name = 'bil';
-var PC_HP = randomInt(4,13);
+var PC_HP = randomInt(20,50);
 var PC_creature = 'human';
+var PC_dam = 0;
+
+function reduceHP() {
+    // roll 2d6+4 damage
+    PC_dam = randomInt(1,6) + randomInt(1,6) + 4;
+    // reduce the char HP by that amount
+    PC_HP -= PC_dam;
+    if ( PC_HP < 0 ) {
+	PC_HP = 0;
+    }
+}
 
 
 function randomInt(low, high) {
@@ -146,7 +157,7 @@ function bot(data, socket, questionNum) {
 	newQuestionNum = 1;
     	break;
     case 1 :
-    	respondWith = 'I\'m not sure what ' + input + ' means, but cool'; // output response
+    	respondWith = 'I\'m not sure what \"' + input + '\" means, but cool'; // output response
     	askQuestion = 'What character or creature do you want to be?'; // load next askQuestion
 	waitTime = 1000;
 	newQuestionNum = 2;
@@ -167,30 +178,37 @@ function bot(data, socket, questionNum) {
 	    waitTime = 1000;
 	    break;
 	case ( 'yes' ) :
-	    respondWith = 'Excellent, ' + input + '!'; // output response
+	    respondWith = 'Excellent, ' + input + '! Your ' + PC_creature + ' has ' + PC_HP + ' Hit Points.'; // output response
     	    askQuestion = 'What action would you like to take against my dragon?'; // load next askQuestion
 	    newQuestionNum = 4;
-	    waitTime = 1000;
+	    reduceHP();
+	    waitTime = 2500;
 	    break;
 	default :
 	    respondWith = '\"' + input + '\" doesn\'t make any sense, ' + PC_name; // output response
-    	    askQuestion = 'Are you down to play or not? yes or no'; // load next askQuestion
+    	    askQuestion = 'Are you down to play or not? (yes or no)'; // load next askQuestion
 	    waitTime = 1000;
 	    newQuestionNum = 3;
 	    break;
 	}
 	break;
     case 4 :
-    	respondWith = 'You try ' + input + '\n... it\'s not very effective ... '; // output response
-    	askQuestion = ''; // prevent questions from loading
-	waitTime = 1000;
-	newQuestionNum = 5;
-    	break;
-    case 5 :
-	respondWith = 'My dragon attacks your ' + PC_creature + ' reducing it\'s ' + PC_HP + ' Hit Points to zero... you died.' ; // output response
-    	askQuestion = ''; // prevent questions from loading
-	waitTime = 1000;
-    	break;
+	// loop over hitpoints
+	switch ( PC_HP ) {
+	case 0 :
+    	    respondWith = 'My dragon attacks your ' + PC_creature + ' dealing ' + PC_dam + ' points of damage. Your ' + PC_creature + ' has died a sad death...' ; // output response
+    	    askQuestion = ''; // prevent questions from loading
+	    waitTime = 1000;
+    	    break;
+	default :
+	    respondWith = ' You try \"' + input + '\" and fail miserably. My dragon attacks your ' + PC_creature + ' dealing ' + PC_dam + ' points of damage. Your ' + PC_creature + ' has ' + PC_HP + ' Hit Points left.' ; // output response
+    	    askQuestion = 'What do you do?'; // go back top
+	    reduceHP();
+	    waitTime = 3500;
+	    newQuestionNum = 4;
+    	    break;
+	}
+	break;
     }
 
     /// We take the changed data and distribute it across the required objects.
