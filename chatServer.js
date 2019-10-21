@@ -34,7 +34,7 @@ function randomColorBG(socket) {
 
 function returnGameComment() {
     var stringer = 'c\'mon';
-    switch ( randomInt(0,15) ) {
+    switch ( randomInt(0,18) ) {
     case 0 :
 	stringer = 'Seriously, pleeeaasseeee';
 	break;
@@ -83,9 +83,14 @@ function returnGameComment() {
     case 15 :
 	stringer = 'You\'re just being a chicken';
 	break;
+    case 16 :
+	stringer = 'You\'ll be so good';
+	break;
+    case 17 :
+	stringer = 'Really, it\'s so much fun';
+    case 18 :
+	stringer = 'It\'s just one game';
     }
-
-    stringer = stringer;
     return stringer;
 }
 
