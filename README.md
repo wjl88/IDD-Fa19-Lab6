@@ -10,12 +10,19 @@ To submit your lab, fork [this repository](https://github.com/FAR-Lab/IDD-Fa18-L
 
 **Describe what changes you made to the baseline chatbot here. Don't forget to push your modified code to this repository.**
 
+- Changed the chat bot to play a simple game with the user
+- Refactored code to use switch-case instead of if-stacking
+- used global variables to monitor player-character information
+   - Damage and hitpoints are iterated in the game loop until player dies
 - Added random number generator to create new background at each conversation set.
-- Refactored code
+- Created a random response function for two different conversation stages
+   - Random pleading statments when user says "no" to playing a game
+   - Random failure statements when user does an action against dragon
+
 
 ## Record someone trying out your ChatBot
 
-**Using a phone or other video device, record someone trying out your ChatBot. Upload that video to this repository and link to it here!**
+[Dungeon Bot in use](https://youtu.be/KKxuFxjc12Y)
 
 ---
 Starter code by [David Goedicke](mailto:da.goedicke@gmail.com), closely based on work by [Nikolas Martelaro](mailto:nmartelaro@gmail.com) and [Captain Anonymous](https://codepen.io/anon/pen/PEVYXz), who forked original work by [Ian Tairea](https://codepen.io/mrtairea/pen/yJapwv).
