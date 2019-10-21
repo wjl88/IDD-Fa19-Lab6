@@ -11,7 +11,7 @@ var io = require('socket.io')(http); // connect websocket library to server
 var serverPort = 8000;
 
 var PC_name = 'bil';
-var PC_HP = randomInt(20,50);
+var PC_HP = randomInt(30,58);
 var PC_creature = 'human';
 var PC_dam = 0;
 
@@ -149,7 +149,8 @@ io.on('connect', function(socket) {
     var questionNum = 0; // keep count of askQuestion, used for IF condition.
     socket.on('loaded', function() { // we wait until the client has loaded and contacted us that it is ready to go.
 	socket.emit('answer', "Welcome to the Dungeon Bot"); //We start with the introduction;
-	setTimeout(timedQuestion, 1000, socket, "What's your name, kid?"); // Wait a moment and respond with a askQuestion.
+	randomColorBG(socket);
+	setTimeout(timedQuestion, 3000, socket, "What's your name, kid?"); // Wait a moment and respond with a askQuestion.
     });
     socket.on('message', (data) => { // If we get a new message from the client we process it;
 	console.log(data);
