@@ -43,6 +43,31 @@ function randomColorBG(socket) {
     socket.emit('changeBG', c);
 }
 
+function returnFailComment() {
+    var failer = 'flops';
+    switch ( randomInt(0,5) ) {
+    case 0 :
+	failer = 'fail miserably';
+	break;
+    case 1 :
+	failer = 'flop horribly';
+	break;
+    case 2 :
+	failer = 'disappoint your family';
+	break;
+    case 3 :
+	failer = 'are unsuccessful';
+	break;
+    case 4 :
+	failer = 'are woefully disappointed';
+	break;
+    case 5 :
+	failer = 'feel sorry for yourself';
+	break;
+    }
+    return failer;
+}
+
 function returnGameComment() {
     var stringer = 'c\'mon';
     switch ( randomInt(0,18) ) {
@@ -196,15 +221,15 @@ function bot(data, socket, questionNum) {
 	// loop over hitpoints
 	switch ( PC_HP ) {
 	case 0 :
-    	    respondWith = 'My dragon attacks your ' + PC_creature + ' dealing ' + PC_dam + ' points of damage. Your ' + PC_creature + ' has died a sad death...' ; // output response
+    	    respondWith = ' You FINALLY tried \"' + input + '\" and ' + returnFailComment() + '. My dragon attacks your ' + PC_creature + ' dealing ' + PC_dam + ' points of damage. Your ' + PC_creature + ' has died a sad death...' ; // output response
     	    askQuestion = ''; // prevent questions from loading
 	    waitTime = 1000;
     	    break;
 	default :
-	    respondWith = ' You try \"' + input + '\" and fail miserably. My dragon attacks your ' + PC_creature + ' dealing ' + PC_dam + ' points of damage. Your ' + PC_creature + ' has ' + PC_HP + ' Hit Points left.' ; // output response
+	    respondWith = ' You try \"' + input + '\" and ' + returnFailComment() + '. My dragon attacks your ' + PC_creature + ' dealing ' + PC_dam + ' points of damage. Your ' + PC_creature + ' has ' + PC_HP + ' Hit Points left.' ; // output response
     	    askQuestion = 'What do you do?'; // go back top
 	    reduceHP();
-	    waitTime = 3500;
+	    waitTime = 4500;
 	    newQuestionNum = 4;
     	    break;
 	}
